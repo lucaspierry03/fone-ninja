@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class VendaItem extends Model
+{
+    protected $fillable = ['venda_id', 'produto_id', 'quantidade', 'preco_unitario', 'custo_unitario'];
+
+    protected function casts(): array
+    {
+        return [
+            'preco_unitario' => 'decimal:2',
+            'custo_unitario' => 'decimal:2',
+            'quantidade' => 'integer',
+        ];
+    }
+
+    public function venda(): BelongsTo
+    {
+        return $this->belongsTo(Venda::class);
+    }
+
+    public function produto(): BelongsTo
+    {
+        return $this->belongsTo(Produto::class);
+    }
+}
